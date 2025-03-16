@@ -4,7 +4,7 @@
   "description": "A node container with the Deno binary added as well",
   "main": "dockerfile",
   "scripts": {
-    "build": "docker build -t bw-export .",
+    "build": "docker build -t mastermindzh/node-with-deno .",
     "publish": "bash docker-publish.sh"
   },
   "repository": {
