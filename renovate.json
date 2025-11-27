@@ -1,89 +1,181 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
-  "assignees": ["Mastermindzh"],
+  "extends": [
+    "config:recommended"
+  ],
+  "assignees": [
+    "Mastermindzh"
+  ],
   "packageRules": [
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["node"],
-      "matchUpdateTypes": ["major"],
-      "labels": ["docker", "node-update", "major"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "node"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "labels": [
+        "docker",
+        "node-update",
+        "major"
+      ],
       "commitMessagePrefix": "docker(major): ",
       "additionalBranchPrefix": "docker-major-",
       "postUpgradeTasks": {
-        "commands": ["npm version major --no-git-tag-version"],
-        "fileFilters": ["package.json"],
+        "commands": [
+          "npm version major --no-git-tag-version"
+        ],
+        "fileFilters": [
+          "package.json"
+        ],
         "executionMode": "branch"
       }
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["node"],
-      "matchUpdateTypes": ["minor"],
-      "labels": ["docker", "node-update", "minor"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "node"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "labels": [
+        "docker",
+        "node-update",
+        "minor"
+      ],
       "commitMessagePrefix": "docker(minor): ",
       "additionalBranchPrefix": "docker-minor-",
       "postUpgradeTasks": {
-        "commands": ["npm version minor --no-git-tag-version"],
-        "fileFilters": ["package.json"],
+        "commands": [
+          "npm version minor --no-git-tag-version"
+        ],
+        "fileFilters": [
+          "package.json"
+        ],
         "executionMode": "branch"
       }
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["node"],
-      "matchUpdateTypes": ["patch"],
-      "labels": ["docker", "node-update", "patch"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "node"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "labels": [
+        "docker",
+        "node-update",
+        "patch"
+      ],
       "commitMessagePrefix": "docker(patch): ",
       "additionalBranchPrefix": "docker-patch-",
       "postUpgradeTasks": {
-        "commands": ["npm version patch --no-git-tag-version"],
-        "fileFilters": ["package.json"],
+        "commands": [
+          "npm version patch --no-git-tag-version"
+        ],
+        "fileFilters": [
+          "package.json"
+        ],
         "executionMode": "branch"
       }
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["denoland/deno"],
-      "matchUpdateTypes": ["major"],
-      "labels": ["docker", "deno-update", "major"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "denoland/deno"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "labels": [
+        "docker",
+        "deno-update",
+        "major"
+      ],
       "commitMessagePrefix": "docker(deno-major): ",
       "additionalBranchPrefix": "deno-major-",
       "postUpgradeTasks": {
-        "commands": ["npm version major --no-git-tag-version"],
-        "fileFilters": ["package.json"],
+        "commands": [
+          "npm version major --no-git-tag-version"
+        ],
+        "fileFilters": [
+          "package.json"
+        ],
         "executionMode": "branch"
       }
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["denoland/deno"],
-      "matchUpdateTypes": ["minor"],
-      "labels": ["docker", "deno-update", "minor"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "denoland/deno"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "labels": [
+        "docker",
+        "deno-update",
+        "minor"
+      ],
       "commitMessagePrefix": "docker(deno-minor): ",
       "additionalBranchPrefix": "deno-minor-",
       "postUpgradeTasks": {
-        "commands": ["npm version minor --no-git-tag-version"],
-        "fileFilters": ["package.json"],
+        "commands": [
+          "npm version minor --no-git-tag-version"
+        ],
+        "fileFilters": [
+          "package.json"
+        ],
         "executionMode": "branch"
       }
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["denoland/deno"],
-      "matchUpdateTypes": ["patch"],
-      "labels": ["docker", "deno-update", "patch"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "denoland/deno"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "labels": [
+        "docker",
+        "deno-update",
+        "patch"
+      ],
       "commitMessagePrefix": "docker(deno-patch): ",
       "additionalBranchPrefix": "deno-patch-",
       "postUpgradeTasks": {
-        "commands": ["npm version patch --no-git-tag-version"],
-        "fileFilters": ["package.json"],
+        "commands": [
+          "npm version patch --no-git-tag-version"
+        ],
+        "fileFilters": [
+          "package.json"
+        ],
         "executionMode": "branch"
       }
     },
     {
-      "matchDatasources": ["npm"],
-      "labels": ["dependencies"],
+      "matchDatasources": [
+        "npm"
+      ],
+      "labels": [
+        "dependencies"
+      ],
       "commitMessagePrefix": "deps: "
     }
   ],
