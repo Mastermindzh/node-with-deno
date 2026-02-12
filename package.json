@@ -1,6 +1,6 @@
 {
   "name": "node-with-deno",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "A node container with the Deno binary added as well",
   "main": "dockerfile",
   "scripts": {
