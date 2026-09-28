@@ -1,2 +1,2 @@
-FROM node:26.8.1
+FROM node:26.10.0
 COPY --from=denoland/deno:bin-2.9.5 /deno /usr/local/bin/deno
