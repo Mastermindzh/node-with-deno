@@ -1,0 +1,66 @@
+name: Dependabot version bump
+
+# Dependabot has no post-update hook (unlike Renovate's postUpgradeTasks), and
+# docker-publish.sh refuses to republish an existing version, so bump it here.
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+    paths:
+      - dockerfile
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: bump
+        name: Determine bump type
+        env:
+          DEPENDENCY_NAMES: ${{ steps.metadata.outputs.dependency-names }}
+          UPDATE_TYPE: ${{ steps.metadata.outputs.update-type }}
+        run: |
+          set -euo pipefail
+
+          case "$DEPENDENCY_NAMES" in
+            *node*|*denoland/deno*) ;;
+            *)
+              echo "No node/deno update in this PR, skipping."
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              exit 0
+              ;;
+          esac
+
+          case "$UPDATE_TYPE" in
+            version-update:semver-major) echo "type=major" >> "$GITHUB_OUTPUT" ;;
+            version-update:semver-minor) echo "type=minor" >> "$GITHUB_OUTPUT" ;;
+            *) echo "type=patch" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - name: Bump package.json version
+        if: steps.bump.outputs.skip != 'true'
+        env:
+          BUMP_TYPE: ${{ steps.bump.outputs.type }}
+        run: |
+          set -euo pipefail
+
+          git config user.name 'dependabot[bot]'
+          git config user.email '49699333+dependabot[bot]@users.noreply.github.com'
+
+          npm version "$BUMP_TYPE" --no-git-tag-version
+          git commit -am "docker(deps): bump package version ($BUMP_TYPE)"
+          git push

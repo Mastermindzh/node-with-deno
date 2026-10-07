@@ -33,4 +33,6 @@ volumes:
 
 trigger:
   event:
-    - tag
+    - push
+  branch:
+    - master

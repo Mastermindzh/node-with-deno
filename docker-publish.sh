@@ -1,13 +1,21 @@
 #!/bin/bash
+set -euo pipefail
 
 DOCKER_SCOPE=${DOCKER_USERNAME:-"mastermindzh"}
 
+VERSION=$(grep version package.json | head -1 | awk -F: '{ print $2}' | sed 's/[\",]//g' | tr -d '[[:space:]]')
+NAME=$(grep name package.json | head -1 | awk -F: '{ print $2}' | sed 's/[\",]//g' | tr -d '[[:space:]]')
+
 TAGS=(
     "latest"
-    "$(cat package.json | grep version | head -1 | awk -F: '{ print $2}' | sed 's/[\",]//g' | tr -d '[[:space:]]')"
+    "$VERSION"
 )
 
-NAME=$(cat package.json | grep name | head -1 | awk -F: '{ print $2}' | sed 's/[\",]//g' | tr -d '[[:space:]]')
+# Never overwrite an already published version, the bump is the release.
+if docker manifest inspect "$DOCKER_SCOPE/$NAME:$VERSION" > /dev/null 2>&1; then
+    echo "$DOCKER_SCOPE/$NAME:$VERSION already exists, bump the version in package.json to release."
+    exit 0
+fi
 
 docker build -t "$DOCKER_SCOPE/$NAME:latest" .
 
